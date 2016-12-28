@@ -4,21 +4,27 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed;
+    public float moveSpeed;
+    public float jumpSpeed;
+    public float jumpLimit;
+
+    public Rigidbody projectile;
+    public float shootSpeed = 20;
 
     private Rigidbody rb;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();        
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown( KeyCode.Space ))
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             //transform.Translate(Vector3.up * 100 * Time.deltaTime, Space.World);
-            rb.AddForce(new Vector3(0.0f, 5, 0.0f), ForceMode.Impulse);
+            //rb.AddForce(new Vector3(0.0f, jumpSpeed, 0.0f), ForceMode.Impulse);
+            rb.AddForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
         }
     }
 
@@ -29,6 +35,6 @@ public class PlayerController : MonoBehaviour
 
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, 0.0f);
 
-        rb.AddForce(movement * speed);
+        rb.AddForce(movement * moveSpeed);
     }
 }
